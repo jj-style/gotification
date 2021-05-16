@@ -6,14 +6,12 @@ import (
 	"gotify/config"
 	"gotify/util"
 	"log"
-	"os"
 	"sync"
 )
 
-type DiscordMessageRequest struct {
-	Message  string `json:"message"`
+type MessageRequest struct {
+	discordgo.MessageSend
 	Language string `json:"language"`
-	Tts		 bool `json:"tts"`
 }
 
 type discordNotifierImpl struct {
@@ -22,7 +20,7 @@ type discordNotifierImpl struct {
 }
 
 type DiscordNotifier interface {
-	SendMessage(channelName string, message DiscordMessageRequest) error
+	SendMessage(channelName string, message MessageRequest) error
 }
 
 var (
@@ -65,17 +63,12 @@ func Discord() DiscordNotifier {
 	return discordNotifier
 }
 
-func (d *discordNotifierImpl) SendMessage(channelName string, message DiscordMessageRequest) error {
+func (d *discordNotifierImpl) SendMessage(channelName string, message MessageRequest) error {
 	if channelId, exists := d.channels[channelName]; exists {
 		if message.Language != "" {
-			message.Message = prepareCodeBlock(message.Message, message.Language)
+			message.Content = prepareCodeBlock(message.Content, message.Language)
 		}
-		var err error
-		if message.Tts {
-			_, err = d.session.ChannelMessageSendTTS(channelId, message.Message)
-		} else {
-			_, err = d.session.ChannelMessageSend(channelId, message.Message)
-		}
+		_, err := d.session.ChannelMessageSendComplex(channelId, &message.MessageSend)
 		if err != nil {
 			return fmt.Errorf("ERROR|notify/discord.SendMessage()|Failed to send message to channel (%s:%s)|%s", channelName, channelId, err.Error())
 		}
@@ -83,16 +76,4 @@ func (d *discordNotifierImpl) SendMessage(channelName string, message DiscordMes
 		return fmt.Errorf("ERROR|notify/discord.SendMessage()|Channel '%s' not found", channelName)
 	}
 	return nil
-}
-
-func (d *discordNotifierImpl) SendFileContents(channelName string, file *os.File) error {
-	content, err := extractFileContents(file)
-	if err != nil {
-		return fmt.Errorf("ERROR|notify/discord.SendFileContents()|Couldn't get file contents|%s", err.Error())
-	}
-	message := DiscordMessageRequest{
-		Message:  content,
-	}
-	
-	return d.SendMessage(channelName, message)
 }

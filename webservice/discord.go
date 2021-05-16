@@ -15,7 +15,7 @@ func discordSendMessage(c *gin.Context) {
 		return
 	}
 
-	var msg notify.DiscordMessageRequest
+	var msg notify.MessageRequest
 	err := c.BindJSON(&msg)
 	if err != nil {
 		util.DoHttpError(c, http.StatusBadRequest, fmt.Errorf("ERROR|webservice/discord.discordSendMessage()|couldn't get message from request|%s", err.Error()))
