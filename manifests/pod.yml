@@ -1,0 +1,16 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  name: gotify
+  labels:
+    app: gotify
+spec:
+  containers:
+    - name: gotify
+      image: cluster:30500/gotify
+      ports:
+        - containerPort: 8080
+  dnsPolicy: "None"
+  dnsConfig:
+    nameservers:
+      - 9.9.9.9
