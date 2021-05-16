@@ -1,0 +1,8 @@
+package util
+
+const (
+	ENV_CONFIG_IMPL  = "CONFIG_IMPL"
+
+	DISCORD_TOKEN = "D_TOKEN"
+	DISCORD_GUILD = "D_GUILD"
+)
