@@ -10,7 +10,5 @@ spec:
       image: cluster:30500/gotify
       ports:
         - containerPort: 8080
-  dnsPolicy: "None"
-  dnsConfig:
-    nameservers:
-      - 9.9.9.9
+  hostNetwork: true
+  dnsPolicy: ClusterFirst
