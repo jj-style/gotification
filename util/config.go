@@ -1,8 +1,14 @@
 package util
 
-const (
-	ENV_CONFIG_IMPL  = "CONFIG_IMPL"
-
-	DISCORD_TOKEN = "D_TOKEN"
-	DISCORD_GUILD = "D_GUILD"
+var (
+	Config ConfigMap
 )
+
+type ConfigMap struct {
+	Host string `toml:"host" mapstructure:"host"`
+	Port string `toml:"port" mapstructure:"port"`
+	Discord struct {
+		Token string `toml:",token" mapstructure:",token"`
+		Guild string `toml:",guild" mapstructure:",guild"`
+	} `toml:"discord" mapstructure:"discord"`
+}

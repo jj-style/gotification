@@ -3,8 +3,7 @@ package notify
 import (
 	"fmt"
 	"github.com/bwmarrin/discordgo"
-	"gotify/config"
-	"gotify/util"
+	. "gotify/util"
 	"log"
 	"sync"
 )
@@ -30,14 +29,14 @@ var (
 
 func Discord() DiscordNotifier {
 	discordNotifierOnce.Do(func() {
-		token := config.Config().GetString(util.DISCORD_TOKEN)
+		token := Config.Discord.Token
 		discord, err := discordgo.New("Bot " + token)
 		if err != nil {
 			log.Fatalf("ERROR|notify/discord.Discord()|Couldn't get discord bot|%s", err.Error())
 		}
 
 		channels := make(map[string]string)
-		guild := config.Config().GetString(util.DISCORD_GUILD)
+		guild := Config.Discord.Guild
 		chn, err := discord.GuildChannels(guild)
 		if err != nil {
 			log.Fatalf("ERROR|notify/discord.Discord()|Couldn't get channels from guild '%s'|%s", guild, err.Error())
