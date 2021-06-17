@@ -3,8 +3,6 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"github.com/spf13/pflag"
-	"github.com/spf13/viper"
 	"gotify/notify"
 	. "gotify/util"
 	"gotify/webservice"
@@ -12,6 +10,9 @@ import (
 	"log"
 	"os"
 	"strings"
+
+	"github.com/spf13/pflag"
+	"github.com/spf13/viper"
 )
 
 func init() {

@@ -2,10 +2,11 @@ package notify
 
 import (
 	"fmt"
-	"github.com/bwmarrin/discordgo"
 	. "gotify/util"
 	"log"
 	"sync"
+
+	"github.com/bwmarrin/discordgo"
 )
 
 type MessageRequest struct {
