@@ -80,7 +80,7 @@ func main() {
 	notify.Discord()
 
 	r := webservice.SetupRouter()
-	serverAddr := fmt.Sprintf("%s:%s", Config.Host, Config.Port)
+	serverAddr := fmt.Sprintf("%s:%d", Config.Host, Config.Port)
 	err := r.Run(serverAddr)
 	if err != nil {
 		log.Fatal(err)

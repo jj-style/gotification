@@ -28,5 +28,5 @@ func discordSendMessage(c *gin.Context) {
 		return
 	}
 
-	c.String(http.StatusOK, "")
+	c.String(http.StatusOK, "message sent")
 }

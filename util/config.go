@@ -5,10 +5,12 @@ var (
 )
 
 type ConfigMap struct {
-	Host    string `toml:"host" mapstructure:"host"`
-	Port    string `toml:"port" mapstructure:"port"`
-	Discord struct {
-		Token string `toml:",token" mapstructure:",token"`
-		Guild string `toml:",guild" mapstructure:",guild"`
-	} `toml:"discord" mapstructure:"discord"`
+	Host    string           `toml:"host" mapstructure:"host"`
+	Port    int              `toml:"port" mapstructure:"port"`
+	Discord DiscordConfigMap `toml:"discord" mapstructure:"discord"`
+}
+
+type DiscordConfigMap struct {
+	Token string `toml:",token" mapstructure:",token"`
+	Guild string `toml:",guild" mapstructure:",guild"`
 }

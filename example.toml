@@ -1,0 +1,7 @@
+# config.toml
+host = "127.0.0.1"
+port = 8000
+
+[discord]
+token = "your discord token"
+guild = "discord guild"

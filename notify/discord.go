@@ -77,3 +77,7 @@ func (d *discordNotifierImpl) SendMessage(channelName string, message MessageReq
 	}
 	return nil
 }
+
+func prepareCodeBlock(message string, language string) string {
+	return fmt.Sprintf("```%s\n%s\n```", language, message)
+}
