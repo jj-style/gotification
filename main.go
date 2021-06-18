@@ -58,10 +58,15 @@ func init() {
 func loadConfigFromFile() {
 	var config string
 	if file := viper.GetString("file"); file == "-" {
-		s := bufio.NewScanner(os.Stdin)
-		for s.Scan() {
-			config += s.Text() + "\n"
+		lines := make([]string, 0, 100)
+		scanner := bufio.NewScanner(os.Stdin)
+		for scanner.Scan() {
+			lines = append(lines, scanner.Text())
 		}
+		if err := scanner.Err(); err != nil {
+			log.Fatal(err)
+		}
+		config = strings.Join(lines, "\n")
 	} else {
 		bytes, err := ioutil.ReadFile(file)
 		if err != nil {
