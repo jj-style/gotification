@@ -81,8 +81,7 @@ func loadConfigFromFile() {
 }
 
 func main() {
-	DISABLE_DISCORD = Config.Discord == DiscordConfigMap{} || viper.GetBool("discord.disable")
-	if !DISABLE_DISCORD {
+	if !Config.Discord.Disable {
 		// initialise connection to discord so first request isn't slow
 		notify.Discord()
 	}

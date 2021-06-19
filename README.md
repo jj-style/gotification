@@ -17,5 +17,19 @@ See [example.toml](example.toml) for the configuration needed to run with discor
 To run without a service like Discord, either:
 - ignore the config block from your TOML file
 - set `disable = true` in the TOML file
+- set `ENV_DISCORD_DISABLE=true`
 
-Override the settings with environment variables like `DISCORD_TOKEN=<your token> DISCORD_GUILD=<your guild> PORT=5000 go run main.go`.
+Override the settings with environment variables like `ENV_DISCORD_TOKEN=<your token> ENV_DISCORD_GUILD=<your guild> ENV_PORT=5000 go run main.go`.
+
+# Authorisation
+Use HTTP Basic Auth on the notification service endpoints with config:
+```toml
+[auth]
+type = "basic"
+
+[[auth.accounts]]
+username = "admin"
+password = "admin"
+```
+
+On each service you can set `noauth = true` to disable authorisation on those endpoints

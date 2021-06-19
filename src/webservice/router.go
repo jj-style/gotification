@@ -8,11 +8,22 @@ import (
 func SetupRouter() *gin.Engine {
 	r := gin.Default()
 
-	r.GET("/health", health)
+	defaultRouter := r.Group("/")
+	authorisedRouter := defaultRouter
+	if util.Config.Auth.Type == "basic" {
+		authorisedRouter = r.Group("/", gin.BasicAuth(util.Config.GinAccounts()))
+	}
+	router := defaultRouter
 
-	if !util.DISABLE_DISCORD {
-		r.POST("/discord/:channelName", discordSendMessage)
-		r.POST("/discord/:channelName/image", discordSendImage)
+	router.GET("/health", health)
+
+	if !util.Config.Discord.Disable {
+		discordRouter := defaultRouter
+		if !util.Config.Discord.NoAuth {
+			discordRouter = authorisedRouter
+		}
+		discordRouter.POST("/discord/:channelName", discordSendMessage)
+		discordRouter.POST("/discord/:channelName/image", discordSendImage)
 	}
 	return r
 }

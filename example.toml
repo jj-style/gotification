@@ -5,4 +5,16 @@ port = 8080
 [discord]
 token = "your discord token"
 guild = "discord guild"
-# disable = true
+disable = false
+noauth = false
+
+[auth]
+type = "basic"
+
+[[auth.accounts]]
+username = "admin"
+password = "admin"
+
+[[auth.accounts]]
+username = "user1"
+password = "password1"
