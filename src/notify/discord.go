@@ -2,17 +2,12 @@ package notify
 
 import (
 	"fmt"
-	. "gotify/util"
+	. "gotification/src/util"
 	"log"
 	"sync"
 
 	"github.com/bwmarrin/discordgo"
 )
-
-type MessageRequest struct {
-	discordgo.MessageSend
-	Language string `json:"language"`
-}
 
 type discordNotifierImpl struct {
 	session  *discordgo.Session
@@ -20,7 +15,7 @@ type discordNotifierImpl struct {
 }
 
 type DiscordNotifier interface {
-	SendMessage(channelName string, message MessageRequest) error
+	SendMessage(channelName string, message DiscordMessageRequest) error
 }
 
 var (
@@ -63,7 +58,7 @@ func Discord() DiscordNotifier {
 	return discordNotifier
 }
 
-func (d *discordNotifierImpl) SendMessage(channelName string, message MessageRequest) error {
+func (d *discordNotifierImpl) SendMessage(channelName string, message DiscordMessageRequest) error {
 	if channelId, exists := d.channels[channelName]; exists {
 		if message.Language != "" {
 			message.Content = prepareCodeBlock(message.Content, message.Language)

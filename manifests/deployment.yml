@@ -1,22 +1,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: gotify-deployment
+  name: gotification-deployment
   labels:
-    app: gotify
+    app: gotification
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: gotify
+      app: gotification
   template:
     metadata:
       labels:
-        app: gotify
+        app: gotification
     spec:
       containers:
-        - name: gotify
-          image: cluster:30500/gotify
+        - name: gotification
+          image: cluster:30500/gotification
           ports:
             - containerPort: 8080
       hostNetwork: true

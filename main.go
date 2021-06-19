@@ -3,9 +3,9 @@ package main
 import (
 	"bufio"
 	"fmt"
-	"gotify/notify"
-	. "gotify/util"
-	"gotify/webservice"
+	"gotification/src/notify"
+	. "gotification/src/util"
+	"gotification/src/webservice"
 	"io/ioutil"
 	"log"
 	"os"
@@ -81,8 +81,11 @@ func loadConfigFromFile() {
 }
 
 func main() {
-	// initialise connection to discord so first request isn't slow
-	notify.Discord()
+	DISABLE_DISCORD = Config.Discord == DiscordConfigMap{} || viper.GetBool("discord.disable")
+	if !DISABLE_DISCORD {
+		// initialise connection to discord so first request isn't slow
+		notify.Discord()
+	}
 
 	r := webservice.SetupRouter()
 	serverAddr := fmt.Sprintf("%s:%d", Config.Host, Config.Port)

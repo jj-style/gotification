@@ -14,4 +14,4 @@ RUN go build -o main .
 
 # set environment variables for app here
 
-CMD ["./main", "-config-file", "credentials.json"]
+CMD ["./main"]

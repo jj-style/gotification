@@ -1,7 +1,8 @@
-# config.toml
-host = "127.0.0.1"
-port = 8000
+# host and port are optional
+host = "0.0.0.0"
+port = 8080
 
 [discord]
 token = "your discord token"
 guild = "discord guild"
+# disable = true

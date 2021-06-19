@@ -1,7 +1,8 @@
 package util
 
 var (
-	Config ConfigMap
+	Config          ConfigMap
+	DISABLE_DISCORD = false
 )
 
 type ConfigMap struct {
