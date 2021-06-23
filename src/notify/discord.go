@@ -61,7 +61,14 @@ func Discord() DiscordNotifier {
 func (d *discordNotifierImpl) SendMessage(channelName string, message DiscordMessageRequest) error {
 	if channelId, exists := d.channels[channelName]; exists {
 		if message.Language != "" {
-			message.Content = prepareCodeBlock(message.Content, message.Language)
+			if message.Content != "" {
+				message.Content = prepareCodeBlock(message.Content, message.Language)
+			}
+			if message.Embed != nil {
+				if message.Embed.Description != "" {
+					message.Embed.Description = prepareCodeBlock(message.Embed.Description, message.Language)
+				}
+			}
 		}
 		_, err := d.session.ChannelMessageSendComplex(channelId, &message.MessageSend)
 		if err != nil {

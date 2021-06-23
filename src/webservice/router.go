@@ -24,6 +24,7 @@ func SetupRouter() *gin.Engine {
 		}
 		discordRouter.POST("/discord/:channelName", discordSendMessage)
 		discordRouter.POST("/discord/:channelName/image", discordSendImage)
+		discordRouter.POST("/discord/:channelName/file", discordSendFileContents)
 	}
 	return r
 }
