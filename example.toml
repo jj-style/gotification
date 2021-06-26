@@ -8,6 +8,11 @@ guild = "discord guild"
 disable = false
 noauth = false
 
+[extract]
+type = "naive"  # or "tika"
+# url = "http://127.0.0.1:9998"
+
+
 [auth]
 type = "basic"
 
